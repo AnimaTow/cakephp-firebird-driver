@@ -14,6 +14,11 @@ php -i | grep PDO
 Should return:
 
 ```
+PDO
+PDO support => enabled
+PDO drivers => firebird, mysql, sqlite
 PDO_Firebird
-PDO Driver for Firebird/InterBase => enabled
+PDO Driver for Firebird => enabled
+PDO Driver for MySQL => enabled
+PDO Driver for SQLite 3.x => enabled
 ```

@@ -17,6 +17,7 @@ composer require animatow/cakephp-firebird-driver
 - CakePHP 4.0+
 - an Firebird PHP extension
     - For Ubuntu 14.04 installing see [Ubuntu-PDO](docs/UbuntuPDO.md)
+    - or FreeBSD 13 installing see [FreeBSD-PDO](docs/FreeBSDPDO.md)
 
 ## Datasource configuration
 

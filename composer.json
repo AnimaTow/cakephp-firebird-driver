@@ -1,6 +1,6 @@
 {
-    "name": "mbamarante/cakephp-firebird-driver",
-    "description": "CakePHP 3 Driver for Firebird Database",
+    "name": "animatow/cakephp-firebird-driver",
+    "description": "CakePHP 4 Driver for Firebird Database",
     "type": "cakephp-plugin",
     "keywords": [
         "cakephp",
@@ -8,13 +8,17 @@
         "database",
         "driver"
     ],
-    "homepage": "https://github.com/mbamarante/cakephp-firebird-driver",
+    "homepage": "https://github.com/animatow/cakephp-firebird-driver",
     "license": "MIT",
     "authors": [
         {
+            "name": "Stephan Broeker",
+            "homepage": "https://twitter.com/animatow/",
+            "role": "Author"
+        },
+        {
             "name": "Maicon Amarante",
             "homepage": "https://twitter.com/mbamarante/",
-            "role": "Author"
         },
         {
             "name": "Others",
@@ -22,15 +26,15 @@
         }
     ],
     "support": {
-        "issues": "https://github.com/mbamarante/cakephp-firebird-driver/issues",
-        "source": "https://github.com/mbamarante/cakephp-firebird-driver"
+        "issues": "https://github.com/animatow/cakephp-firebird-driver/issues",
+        "source": "https://github.com/animatow/cakephp-firebird-driver"
     },
     "config": {
         "preferred-install": "src"
     },
     "require": {
         "php": ">=5.6",
-        "cakephp/cakephp": "~3.6"
+        "cakephp/cakephp": "~4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.7.14|^6.0"

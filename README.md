@@ -1,4 +1,4 @@
-# CakePHP 3 Driver for Firebird Database
+# CakePHP 4 Driver for Firebird Database
 
 Currently provides data reading, inserting, deleting and updating.
 
@@ -9,12 +9,12 @@ You can install this plugin into your CakePHP application using [composer](http:
 The recommended way to install composer packages is:
 
 ```
-composer require mbamarante/cakephp-firebird-driver
+composer require animatow/cakephp-firebird-driver
 ```
 
 ## Requirements
 
-- CakePHP 3.2+
+- CakePHP 4.0+
 - an Firebird PHP extension
     - For Ubuntu 14.04 installing see [Ubuntu-PDO](docs/UbuntuPDO.md)
 

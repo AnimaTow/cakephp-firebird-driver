@@ -1,4 +1,16 @@
 <?php
+/**
+ * Copyright 2016 Maicon Amarante
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright Copyright 2016 Maicon Amarante
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ *
+ * @ Update by AnimaTow Stephan Bröker
+ */
 $findRoot = function ($root) {
     do {
         $lastRoot = $root;

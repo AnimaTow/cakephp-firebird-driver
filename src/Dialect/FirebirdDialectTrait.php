@@ -7,6 +7,9 @@
  *
  * @copyright Copyright 2016 Maicon Amarante
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ *
+ * @ Update by AnimaTow Stephan Bröker
  */
 namespace CakephpFirebird\Dialect;
 

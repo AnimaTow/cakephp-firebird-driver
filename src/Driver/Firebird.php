@@ -10,8 +10,10 @@
  *
  *
  * @ Update by AnimaTow Stephan Bröker
+ * @ Update by mediafelis.de Kevin Gledhill
  */
 namespace CakephpFirebird\Driver;
+
 
 use PDO;
 use Cake\Database\Driver;
@@ -23,7 +25,7 @@ use CakephpFirebird\Statement\FirebirdStatement;
 
 class Firebird extends Driver
 {
-    use PDODriverTrait;
+    // use PDODriverTrait;
     use FirebirdDialectTrait;
 
     /**
@@ -49,7 +51,7 @@ class Firebird extends Driver
      *
      * @return bool true on success
      */
-    public function connect()
+    public function connect(): bool
     {
         if ($this->_connection) {
             return true;
@@ -78,7 +80,7 @@ class Firebird extends Driver
      *
      * @return bool true if it is valid to use this driver
      */
-    public function enabled()
+    public function enabled(): bool
     {
         return in_array('firebird', PDO::getAvailableDrivers());
     }
@@ -88,7 +90,7 @@ class Firebird extends Driver
      *
      * @return \CakephpFirebird\Schema\FirebirdSchema
      */
-    public function schemaDialect()
+    public function schemaDialect(): SchemaDialect
     {
         if (!$this->_schemaDialect) {
             $this->_schemaDialect = new FirebirdSchema($this);
@@ -100,9 +102,9 @@ class Firebird extends Driver
      * Prepares a sql statement to be executed
      *
      * @param string|\Cake\Database\Query $query The query to prepare.
-     * @return \Cake\Database\StatementInterface
+     * @return StatementInterface
      */
-    public function prepare($query)
+    public function prepare($query): StatementInterface
     {
         $this->connect();
         $isObject = $query instanceof Query;
@@ -116,7 +118,7 @@ class Firebird extends Driver
      *
      * @return bool true if driver supports dynamic constraints
      */
-    public function supportsDynamicConstraints()
+    public function supportsDynamicConstraints(): bool
     {
         return false;
     }
@@ -137,7 +139,7 @@ class Firebird extends Driver
     /**
      * @return string
      */
-    public function disableForeignKeySQL()
+    public function disableForeignKeySQL(): string
     {
         return 'select \'false\' from rdb$database';
     }
@@ -145,7 +147,7 @@ class Firebird extends Driver
     /**
      * @return string
      */
-    public function enableForeignKeySQL()
+    public function enableForeignKeySQL(): string
     {
         return 'select \'false\' from rdb$database';
     }
@@ -153,7 +155,7 @@ class Firebird extends Driver
     /**
      * @return bool
      */
-    public function isConnected()
+    public function isConnected(): bool
     {
         if ($this->_connection === null) {
             $connected = false;

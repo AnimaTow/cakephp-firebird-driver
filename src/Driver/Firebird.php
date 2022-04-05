@@ -14,7 +14,6 @@
  */
 namespace CakephpFirebird\Driver;
 
-
 use PDO;
 use Cake\Database\Driver;
 use Cake\Database\Query;
@@ -22,6 +21,8 @@ use Cake\Database\Driver\PDODriverTrait;
 use CakephpFirebird\Dialect\FirebirdDialectTrait;
 use CakephpFirebird\Schema\FirebirdSchema;
 use CakephpFirebird\Statement\FirebirdStatement;
+use Cake\Database\StatementInterface;
+use Cake\Database\Schema\SchemaDialect;
 
 class Firebird extends Driver
 {
@@ -45,6 +46,8 @@ class Firebird extends Driver
         'timezone' => null,
         'init' => [],
     ];
+
+    protected $_schemaDialect;
 
     /**
      * Establishes a connection to the database server
@@ -92,7 +95,7 @@ class Firebird extends Driver
      */
     public function schemaDialect(): SchemaDialect
     {
-        if (!$this->_schemaDialect) {
+        if (!$this->_schemaDialect === null) {
             $this->_schemaDialect = new FirebirdSchema($this);
         }
         return $this->_schemaDialect;

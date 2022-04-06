@@ -4,6 +4,7 @@
     "type": "cakephp-plugin",
     "keywords": [
         "cakephp",
+        "cakephp4",
         "firebird",
         "database",
         "driver"
@@ -14,21 +15,19 @@
         {
             "name": "Stephan Broeker",
             "homepage": "https://twitter.com/animatow/",
-            "role": "Author"
+            "role": "Developer"
         },
         {
-            "name": "Maicon Amarante",
-            "homepage": "https://twitter.com/mbamarante/"
-        },
-        {
-            "name": "Others",
-            "homepage": "https://github.com/mbamarante/cakephp-firebird-driver/graphs/contributors"
+            "name": "Kevin Gledhill",
+            "homepage": "https://mediafelis.de/",
+            "role": "Developer"
         }
     ],
     "support": {
         "issues": "https://github.com/animatow/cakephp-firebird-driver/issues",
         "source": "https://github.com/animatow/cakephp-firebird-driver"
     },
+
     "config": {
         "preferred-install": "src"
     },

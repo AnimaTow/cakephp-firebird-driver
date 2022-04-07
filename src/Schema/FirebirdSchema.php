@@ -18,6 +18,8 @@ namespace CakephpFirebird\Schema;
 use Cake\Database\Exception;
 use Cake\Database\Schema\BaseSchema;
 use Cake\Database\Schema\Table;
+use Cake\Database\Schema\TableSchema;
+
 /**
  * Schema generation/reflection features for Firebird
  * Commands taken from http://www.alberton.info/firebird_sql_meta_info.html#.Vvv5wSbRJQt
@@ -28,7 +30,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function listTablesSql($config)
+    public function listTablesSql(array $config): array
     {
         return [
             'SELECT RDB$RELATION_NAME
@@ -41,7 +43,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function describeColumnSql($tableName, $config)
+    public function describeColumnSql(string $tableName, array $config): array
     {
         return ['SELECT trim(LOWER(r.RDB$FIELD_NAME)) AS FIELD_NAME,
                     CASE f.RDB$FIELD_TYPE
@@ -85,7 +87,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function describeIndexSql($tableName, $config)
+    public function describeIndexSql(string $tableName, array $config): array
     {
         return [
             'SELECT TRIM(i.RDB$INDEX_NAME) AS INDEX_NAME,
@@ -197,7 +199,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function convertColumnDescription(Table $table, $row)
+    public function convertColumnDescription(TableSchema $table, array $row): void
     {
         $field = $this->_convertColumn($row['FIELD_TYPE']);
         $field += [
@@ -215,18 +217,18 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function convertIndexDescription(Table $table, $row)
+    public function convertIndexDescription(TableSchema $table, array $row): void
     {
         $type = null;
         $columns = $length = [];
 
         if ($row['IS_PRIMARY_KEY'] == '1') {
-            $name = $type = Table::CONSTRAINT_PRIMARY;
+            $name = $type = TableSchema::CONSTRAINT_PRIMARY;
         }
 
         $columns[] = trim($row['COLUMN_NAME']);
 
-        if ($type === Table::CONSTRAINT_PRIMARY || $type === Table::CONSTRAINT_UNIQUE) {
+        if ($type === TableSchema::CONSTRAINT_PRIMARY || $type === TableSchema::CONSTRAINT_UNIQUE) {
             $table->addConstraint($name, [
                 'type' => $type,
                 'columns' => $columns
@@ -238,7 +240,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function describeForeignKeySql($tableName, $config)
+    public function describeForeignKeySql(string $tableName, array $config): array
     {
         return ['SELECT DISTINCT
                   LOWER(rc.RDB$CONSTRAINT_NAME) AS "CONSTRAINT_NAME",
@@ -263,10 +265,10 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function convertForeignKeyDescription(Table $table, $row)
+    public function convertForeignKeyDescription(TableSchema $table, $row): void
     {
         $data = [
-            'type' => Table::CONSTRAINT_FOREIGN,
+            'type' => TableSchema::CONSTRAINT_FOREIGN,
             'columns' => [trim($row['COLUMN_NAME'])],
             'references' => [trim($row['REFERENCED_TABLE_NAME']), trim($row['REFERENCED_COLUMN_NAME'])],
             'update' => $this->_convertOnClause(trim($row['UPDATE_RULE'])),
@@ -279,7 +281,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function truncateTableSql(Table $table)
+    public function truncateTableSql(TableSchema $table): array
     {
         $sql = sprintf("DELETE FROM %s", strtoupper($table->name()));
         return [$sql];
@@ -288,7 +290,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function columnSql(Table $table, $name)
+    public function columnSql(TableSchema $table, string $name): string
     {
         $data = $table->getColumn($name);
         $out = $this->_driver->quoteIdentifier($name);
@@ -367,7 +369,7 @@ class FirebirdSchema extends BaseSchema
 
     /**
      */
-    public function createTableSql(Table $table, $columns, $constraints, $indexes)
+    public function createTableSql(TableSchema $table, $columns, $constraints, $indexes): array
     {
         $content = array_merge($columns, $constraints);
         $content = implode(",\n", array_filter($content));
@@ -383,10 +385,10 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function constraintSql(Table $table, $name)
+    public function constraintSql(TableSchema $table, string $name): string
     {
         $data = $table->getConstraint($name);
-        if ($data['type'] === Table::CONSTRAINT_PRIMARY) {
+        if ($data['type'] === TableSchema::CONSTRAINT_PRIMARY) {
             return sprintf('CONSTRAINT pk_%s_0 PRIMARY KEY ("%s")', $table->name(), implode(', ', $data['columns']));
         }
 
@@ -397,7 +399,7 @@ class FirebirdSchema extends BaseSchema
      * @param Table $table
      * @return array
      */
-    public function  dropTableSql(Table $table)
+    public function  dropTableSql(TableSchema $table): array
     {
         $sql = sprintf(
             'DROP TABLE %s',
@@ -411,7 +413,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function addConstraintSql(Table $table)
+    public function addConstraintSql(TableSchema $table) : array
     {
         return false;
     }
@@ -419,7 +421,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function dropConstraintSql(Table $table)
+    public function dropConstraintSql(TableSchema $table): array
     {
         return false;
     }
@@ -427,7 +429,7 @@ class FirebirdSchema extends BaseSchema
     /**
      * {@inheritDoc}
      */
-    public function indexSql(Table $table, $name)
+    public function indexSql(TableSchema $table, string $name): string
     {
         return false;
     }
@@ -439,7 +441,7 @@ class FirebirdSchema extends BaseSchema
      * @param array $data Key data.
      * @return string
      */
-    protected function _keySql($prefix, $data)
+    protected function _keySql($prefix, $data): string|false
     {
         return false;
     }

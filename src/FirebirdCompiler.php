@@ -15,7 +15,9 @@
  */
 namespace CakephpFirebird;
 
+use Cake\Database\Query;
 use Cake\Database\QueryCompiler;
+use Cake\Database\ValueBinder;
 
 /**
  * Responsible for compiling a Query object into its SQL representation
@@ -50,11 +52,15 @@ class FirebirdCompiler extends QueryCompiler
 
     /**
      * @param array $parts
-     * @param \Cake\Database\Query $query
-     * @param \Cake\Database\ValueBinder $generator
+     * @param Query $query
+     * @param ValueBinder $generator
      * @return string
      */
-    protected function _buildSelectPart($parts, $query, $generator)
+    protected function _buildSelectPart(
+        array $parts,
+        Query $query,
+        ValueBinder $generator
+    ): string
     {
         $driver = $query
             ->getConnection()
@@ -100,11 +106,15 @@ class FirebirdCompiler extends QueryCompiler
      * row's data back.
      *
      * @param array $parts The parts to build
-     * @param \Cake\Database\Query $query The query that is being compiled
-     * @param \Cake\Database\ValueBinder $generator the placeholder generator to be used in expressions
+     * @param Query $query The query that is being compiled
+     * @param ValueBinder $generator the placeholder generator to be used in expressions
      * @return string
      */
-    protected function _buildInsertPart($parts, $query, $generator)
+    protected function _buildInsertPart(
+        array $parts,
+        Query $query,
+        ValueBinder $generator
+    ): string
     {
         $table = $parts[0];
         $columns = $this->_stringifyExpressions($parts[1], $generator);
@@ -114,11 +124,11 @@ class FirebirdCompiler extends QueryCompiler
 
     /**
      * @param array $parts
-     * @param \Cake\Database\Query $query
-     * @param \Cake\Database\ValueBinder $generator
+     * @param Query $query
+     * @param ValueBinder $generator
      * @return string
      */
-    protected function _buildValuesPart($parts, $query, $generator)
+    protected function _buildValuesPart(array $parts, Query $query, ValueBinder $generator): string
     {
         $values = $parts[0];
 
@@ -134,10 +144,10 @@ class FirebirdCompiler extends QueryCompiler
      * Generates the LIMIT part of a Firebird
      *
      * @param int $limit the limit clause
-     * @param \Cake\Database\Query $query The query that is being compiled
+     * @param Query $query The query that is being compiled
      * @return string
      */
-    protected function _buildLimitPart($limit, $query)
+    protected function _buildLimitPart(int $limit, Query $query): string
     {
         return false;
     }

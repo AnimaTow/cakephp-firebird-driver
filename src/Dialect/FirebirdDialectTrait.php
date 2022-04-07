@@ -13,7 +13,6 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  *
  */
-
 namespace CakephpFirebird\Dialect;
 
 use Cake\Database\QueryCompiler;

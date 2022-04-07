@@ -33,7 +33,7 @@ class FirebirdStatement extends PDOStatement
      * {@inheritDoc}
      *
      */
-    public function execute($params = null)
+    public function execute(?array $params = null): bool
     {
         $result = $this->_statement->execute($params);
         return $result;
@@ -42,7 +42,7 @@ class FirebirdStatement extends PDOStatement
     /**
      * @return int
      */
-    public function rowCount()
+    public function rowCount(): int
     {
         if (
             strpos($this->_statement->queryString, 'INSERT') === 0 ||
